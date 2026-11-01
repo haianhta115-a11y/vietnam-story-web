@@ -1,50 +1,48 @@
 /**
- * KÝ ỨC VIỆT NAM 40 NĂM TRƯỚC - CINEMATIC STORYTELLER (CLEAN HD)
- * - Sắc nét HD không vỡ hình, không grain/vết nứt
- * - Chuyển động Ken Burns êm dịu theo giọng đọc
- * - Giọng đọc thanh thoát, lưu loát (Pitch 1.15x, ưu tiên giọng Hoài My / Jenny)
- * - Đã xóa hoàn toàn nhạc nền theo yêu cầu
+ * LIFE IN VIETNAM 40 YEARS AGO - FULL ENGLISH CINEMATIC STORYTELLER
+ * Features:
+ * - 100% English Narration with Natural Fluent Voice (Jenny / Aria / Google US English)
+ * - 3D Kinetic Embossed Bouncing Subtitles ("Chữ nổi nhảy theo giọng đọc")
+ * - High-Definition HD Visuals with gentle Ken Burns motion
+ * - Full English interface, controls, and contextual notes
  */
 
 // ==========================================
-// 1. STORY SCENE DATA
+// 1. STORY SCENE DATA (ENGLISH)
 // ==========================================
 const STORY_SCENES = [
   {
     id: 0,
-    badge: "CẢNH 1 / 3 • ĐỒNG QUÊ & NỖI NHỌC NHẰN",
-    text_vi: "Khoảng 40 năm trước, cuộc sống ở Việt Nam còn muôn vàn khó khăn. Nhiều gia đình nghèo khó, thiếu thốn cái ăn, manh áo; người lớn vất vả sớm hôm trên những cánh đồng,",
-    text_en: "About forty years ago, life in Vietnam was very difficult. Many families were poor and lacked food and clothes, while adults worked hard in the fields,",
+    badge: "SCENE 1 / 3 • COUNTRYSIDE & HARD LABOR",
+    text: "About forty years ago, life in Vietnam was very difficult. Many families were poor and lacked food and clothes. Adults worked hard in the fields,",
     camera: {
       start: { x: 0, y: -4, scale: 1.0 },
       mid:   { x: 0.5, y: 0, scale: 1.03 },
       end:   { x: -0.8, y: 4, scale: 1.06 }
     },
-    estimatedSeconds: 10.5
+    estimatedSeconds: 10.8
   },
   {
     id: 1,
-    badge: "CẢNH 2 / 3 • ĐẾN LỚP & ĐỠ ĐẦN CHA MẸ",
-    text_vi: "trong khi trẻ nhỏ ngày ngày đi bộ đến trường và chăm chỉ giúp đỡ cha mẹ việc nhà.",
-    text_en: "while children walked to school and diligently helped their parents with housework.",
+    badge: "SCENE 2 / 3 • WALK TO SCHOOL & HELPING FAMILY",
+    text: "while children walked to school and helped their parents with housework.",
     camera: {
       start: { x: 1, y: -3, scale: 1.0 },
       mid:   { x: -0.5, y: 0, scale: 1.03 },
       end:   { x: 0, y: 3.5, scale: 1.05 }
     },
-    estimatedSeconds: 6.5
+    estimatedSeconds: 6.2
   },
   {
     id: 2,
-    badge: "CẢNH 3 / 3 • TÌNH YÊU THƯƠNG & ĐÙM BỌC",
-    text_vi: "Dù cuộc sống muôn vàn gian nan, mọi người vẫn luôn tràn ngập yêu thương, quan tâm và đùm bọc lẫn nhau.",
-    text_en: "Although life was difficult, people always loved, cared for, and supported each other.",
+    badge: "SCENE 3 / 3 • BOUNDLESS LOVE & SOLIDARITY",
+    text: "Although life was difficult, people always loved, cared for, and supported each other.",
     camera: {
       start: { x: 0, y: -3, scale: 1.0 },
       mid:   { x: 0.6, y: 0, scale: 1.03 },
       end:   { x: 0, y: 3.5, scale: 1.06 }
     },
-    estimatedSeconds: 8.0
+    estimatedSeconds: 8.2
   }
 ];
 
@@ -55,9 +53,9 @@ const state = {
   currentScene: 0,
   isPlaying: false,
   isPaused: false,
-  language: 'vi-VN', // Default to Vietnamese for the clearest pronunciation
-  playbackRate: 1.0,
-  playbackPitch: 1.15, // Âm sắc thanh thoát
+  language: 'en-US',
+  playbackRate: 0.98, // Fluent natural pacing
+  playbackPitch: 1.12, // Bright, clear, pleasant timbre
   selectedVoice: null,
   availableVoices: [],
   sceneProgress: 0, // 0.0 to 1.0
@@ -83,14 +81,12 @@ const elements = {
   prevBtn: document.getElementById('prev-btn'),
   nextBtn: document.getElementById('next-btn'),
   replayBtn: document.getElementById('replay-btn'),
-  langSelect: document.getElementById('lang-select'),
   voiceSelect: document.getElementById('voice-select'),
   pitchSelect: document.getElementById('pitch-select'),
   speedSelect: document.getElementById('speed-select'),
   speechIndicator: document.getElementById('speech-indicator'),
   sceneBadge: document.getElementById('scene-badge'),
   captionPrimary: document.getElementById('caption-primary'),
-  captionSecondary: document.getElementById('caption-secondary'),
   timelineBar: document.getElementById('timeline-bar'),
   timelineProgress: document.getElementById('timeline-progress'),
   timeCurrent: document.getElementById('time-current'),
@@ -111,24 +107,21 @@ const elements = {
 const TOTAL_DURATION_SECONDS = STORY_SCENES.reduce((sum, s) => sum + s.estimatedSeconds, 0);
 
 // ==========================================
-// 4. SPEECH SYNTHESIS SETUP (THANH & LƯU LOÁT)
+// 4. SPEECH SYNTHESIS SETUP (NATURAL ENGLISH VOICES)
 // ==========================================
 function populateVoices() {
   if (!state.speechSynth) return;
   const allVoices = state.speechSynth.getVoices();
   state.availableVoices = allVoices;
 
-  const currentLang = state.language;
-  const langPrefix = currentLang.substring(0, 2).toLowerCase();
-  let matchingVoices = allVoices.filter(v => v.lang.toLowerCase().startsWith(langPrefix));
-
-  // If no direct match for Vietnamese, show all available voices
-  if (matchingVoices.length === 0 && langPrefix === 'vi') {
-    matchingVoices = allVoices;
+  // Filter English voices
+  let englishVoices = allVoices.filter(v => v.lang.toLowerCase().startsWith('en'));
+  if (englishVoices.length === 0) {
+    englishVoices = allVoices;
   }
 
   elements.voiceSelect.innerHTML = '';
-  matchingVoices.forEach((voice) => {
+  englishVoices.forEach((voice) => {
     const opt = document.createElement('option');
     opt.value = voice.name;
     let cleanName = voice.name.replace(/Microsoft |Google /g, '');
@@ -136,21 +129,15 @@ function populateVoices() {
     elements.voiceSelect.appendChild(opt);
   });
 
-  // Ưu tiên các giọng nữ thanh thoát, tự nhiên nhất:
-  // - Tiếng Việt: Microsoft HoaiMy Online (Natural), Google tiếng Việt
-  // - Tiếng Anh: Microsoft Jenny Online (Natural), Microsoft Aria, Google US English
-  let preferredVoice = null;
-  if (langPrefix === 'vi') {
-    preferredVoice = matchingVoices.find(v => v.name.includes('HoaiMy') || v.name.includes('Hoài My')) ||
-                     matchingVoices.find(v => v.name.includes('Natural') && v.lang.startsWith('vi')) ||
-                     matchingVoices.find(v => v.lang.toLowerCase().startsWith('vi')) ||
-                     matchingVoices[0];
-  } else {
-    preferredVoice = matchingVoices.find(v => v.name.includes('Jenny') && v.name.includes('Natural')) ||
-                     matchingVoices.find(v => v.name.includes('Aria')) ||
-                     matchingVoices.find(v => v.name.includes('Natural')) ||
-                     matchingVoices[0];
-  }
+  // Prioritize top natural high-definition English voices:
+  // Jenny (Natural), Aria (Natural), Guy (Natural), Google US English
+  const preferredVoice = 
+    englishVoices.find(v => v.name.includes('Jenny') && v.name.includes('Natural')) ||
+    englishVoices.find(v => v.name.includes('Aria') && v.name.includes('Natural')) ||
+    englishVoices.find(v => v.name.includes('Natural') && v.lang.includes('US')) ||
+    englishVoices.find(v => v.name.includes('US English')) ||
+    englishVoices.find(v => v.name.includes('Jenny')) ||
+    englishVoices[0];
 
   if (preferredVoice) {
     elements.voiceSelect.value = preferredVoice.name;
@@ -163,7 +150,7 @@ if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !=
 }
 
 // ==========================================
-// 5. KEN BURNS MOTION ENGINE (SUBTLE & CRISP)
+// 5. KEN BURNS MOTION ENGINE
 // ==========================================
 function updateCameraMotion(sceneIndex, progress) {
   const scene = STORY_SCENES[sceneIndex];
@@ -194,7 +181,7 @@ function updateCameraMotion(sceneIndex, progress) {
 }
 
 // ==========================================
-// 6. CAPTION & SUBTITLE RENDERING
+// 6. 3D KINETIC BOUNCING WORDS ENGINE
 // ==========================================
 let currentSceneWords = [];
 
@@ -202,11 +189,7 @@ function renderCaptions(sceneIndex) {
   const scene = STORY_SCENES[sceneIndex];
   elements.sceneBadge.textContent = scene.badge;
 
-  const isVi = state.language === 'vi-VN';
-  const primaryText = isVi ? scene.text_vi : scene.text_en;
-  const secondaryText = isVi ? scene.text_en : scene.text_vi;
-
-  currentSceneWords = primaryText.split(/\s+/);
+  currentSceneWords = scene.text.split(/\s+/);
   elements.captionPrimary.innerHTML = '';
   
   currentSceneWords.forEach((word, index) => {
@@ -216,17 +199,20 @@ function renderCaptions(sceneIndex) {
     span.textContent = word + ' ';
     elements.captionPrimary.appendChild(span);
   });
-
-  elements.captionSecondary.textContent = secondaryText;
 }
 
-function highlightWord(wordIndex) {
+function triggerWordJump(wordIndex) {
+  if (wordIndex === state.activeWordIndex) return;
   state.activeWordIndex = wordIndex;
+
   const wordSpans = elements.captionPrimary.querySelectorAll('.word');
   wordSpans.forEach((span, idx) => {
     if (idx < wordIndex) {
       span.className = 'word spoken';
     } else if (idx === wordIndex) {
+      // Re-trigger animation cleanly
+      span.className = 'word';
+      void span.offsetWidth; // Force CSS reflow
       span.className = 'word active';
     } else {
       span.className = 'word';
@@ -268,8 +254,7 @@ function playScene(sceneIndex) {
   switchSceneUI(sceneIndex);
 
   const scene = STORY_SCENES[sceneIndex];
-  const isVi = state.language === 'vi-VN';
-  const textToSpeak = isVi ? scene.text_vi : scene.text_en;
+  const textToSpeak = scene.text;
 
   if (state.speechSynth) {
     state.speechSynth.cancel();
@@ -277,8 +262,8 @@ function playScene(sceneIndex) {
 
   const utterance = new SpeechSynthesisUtterance(textToSpeak);
   utterance.rate = state.playbackRate;
-  utterance.pitch = state.playbackPitch; // Giọng thanh và trong trẻo
-  utterance.lang = state.language;
+  utterance.pitch = state.playbackPitch;
+  utterance.lang = 'en-US';
 
   const voiceName = elements.voiceSelect.value;
   const voice = state.availableVoices.find(v => v.name === voiceName);
@@ -290,14 +275,16 @@ function playScene(sceneIndex) {
   state.sceneStartTime = performance.now();
   state.sceneDurationMs = (scene.estimatedSeconds * 1000) / state.playbackRate;
 
+  // Real-time word boundary jumping
   utterance.onboundary = (e) => {
     if (e.name === 'word') {
       const charIndex = e.charIndex;
       let charCount = 0;
       for (let i = 0; i < currentSceneWords.length; i++) {
-        const wordLen = currentSceneWords[i].length + 1;
+        const cleanWord = currentSceneWords[i];
+        const wordLen = cleanWord.length + 1;
         if (charIndex >= charCount && charIndex < charCount + wordLen) {
-          highlightWord(i);
+          triggerWordJump(i);
           state.sceneProgress = (i + 1) / currentSceneWords.length;
           break;
         }
@@ -311,10 +298,11 @@ function playScene(sceneIndex) {
     state.isPaused = false;
     updatePlayPauseButtonUI();
     elements.speechIndicator.classList.add('active');
+    triggerWordJump(0);
   };
 
   utterance.onend = () => {
-    highlightWord(currentSceneWords.length);
+    triggerWordJump(currentSceneWords.length);
     state.sceneProgress = 1.0;
     updateCameraMotion(sceneIndex, 1.0);
     elements.speechIndicator.classList.remove('active');
@@ -336,7 +324,7 @@ function playScene(sceneIndex) {
   state.speechSynth.speak(utterance);
 }
 
-// Continuous frame loop
+// Continuous frame loop for smooth camera & kinetic fallback sync
 function animationLoop(timestamp) {
   if (state.isPlaying && !state.isPaused) {
     const elapsed = timestamp - state.sceneStartTime;
@@ -345,12 +333,13 @@ function animationLoop(timestamp) {
     state.sceneProgress = progress;
     updateCameraMotion(state.currentScene, state.sceneProgress);
 
+    // Fallback sync ensures words bounce on beat even if onboundary isn't supported
     const estimatedWordIndex = Math.min(
       currentSceneWords.length - 1,
       Math.floor(progress * currentSceneWords.length)
     );
     if (estimatedWordIndex > state.activeWordIndex) {
-      highlightWord(estimatedWordIndex);
+      triggerWordJump(estimatedWordIndex);
     }
 
     updateTimelineUI();
@@ -490,16 +479,6 @@ elements.thumbBtns.forEach((btn) => {
   });
 });
 
-// Language Switch
-elements.langSelect.addEventListener('change', (e) => {
-  state.language = e.target.value;
-  populateVoices();
-  renderCaptions(state.currentScene);
-  if (state.isPlaying) {
-    playScene(state.currentScene);
-  }
-});
-
 // Voice selection
 elements.voiceSelect.addEventListener('change', () => {
   if (state.isPlaying) {
@@ -507,7 +486,7 @@ elements.voiceSelect.addEventListener('change', () => {
   }
 });
 
-// Pitch selection (Âm sắc thanh thoát)
+// Pitch selection (Tone)
 elements.pitchSelect.addEventListener('change', (e) => {
   state.playbackPitch = parseFloat(e.target.value);
   if (state.isPlaying) {

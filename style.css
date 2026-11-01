@@ -1,26 +1,26 @@
 /* ============================================================
-   KÝ ỨC VIỆT NAM 40 NĂM TRƯỚC - CINEMATIC STORYTELLER (CLEAN HD)
+   LIFE IN VIETNAM 40 YEARS AGO - 3D KINETIC TYPOGRAPHY (ENGLISH)
    ============================================================ */
 
 :root {
   --bg-primary: #12100e;
   --bg-secondary: #1a1613;
-  --bg-card: rgba(26, 21, 18, 0.9);
+  --bg-card: rgba(26, 21, 18, 0.92);
   --accent-gold: #e2a65a;
   --accent-amber: #f7ca72;
-  --accent-glow: rgba(247, 202, 114, 0.45);
+  --accent-glow: rgba(247, 202, 114, 0.55);
   --text-primary: #fcf9f2;
   --text-secondary: #d5cbba;
   --text-dim: #968c7e;
   --border-vintage: rgba(226, 166, 90, 0.28);
-  --border-strong: rgba(226, 166, 90, 0.55);
+  --border-strong: rgba(226, 166, 90, 0.6);
   --font-serif: 'Lora', 'Times New Roman', Georgia, serif;
   --font-display: 'Cinzel', 'Lora', serif;
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 20px;
-  --shadow-cinema: 0 20px 60px rgba(0, 0, 0, 0.85);
+  --shadow-cinema: 0 20px 60px rgba(0, 0, 0, 0.88);
 }
 
 *, *::before, *::after {
@@ -43,7 +43,7 @@ body {
   position: fixed;
   inset: 0;
   background: 
-    radial-gradient(ellipse at 50% 15%, rgba(226, 166, 90, 0.06) 0%, transparent 65%),
+    radial-gradient(ellipse at 50% 15%, rgba(226, 166, 90, 0.08) 0%, transparent 65%),
     linear-gradient(to bottom, #110f0d, #171310 50%, #0d0b09 100%);
   pointer-events: none;
   z-index: 0;
@@ -140,7 +140,7 @@ body {
   cursor: pointer;
   outline: none;
   padding: 4px 6px;
-  max-width: 240px;
+  max-width: 250px;
 }
 
 .select-input option {
@@ -149,7 +149,7 @@ body {
 }
 
 .compact-select {
-  max-width: 115px;
+  max-width: 130px;
 }
 
 /* Button Component */
@@ -233,7 +233,7 @@ body {
   flex-direction: column;
 }
 
-/* Crisp Viewport for High-Def Images */
+/* Viewport for High-Def Images */
 .viewport-wrapper {
   position: relative;
   width: 100%;
@@ -259,7 +259,7 @@ body {
   inset: 0;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.85s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -283,7 +283,7 @@ body {
   opacity: 0.85;
 }
 
-/* Crisp, Clean Foreground Image with Ken Burns Drift */
+/* Foreground Crisp Image with Gentle Ken Burns Drift */
 .ken-burns-img {
   position: relative;
   z-index: 2;
@@ -299,7 +299,7 @@ body {
   border-radius: 4px;
 }
 
-/* Animated Speech Indicator */
+/* Speech Indicator */
 .speech-indicator {
   position: absolute;
   top: 18px;
@@ -350,7 +350,7 @@ body {
   100% { height: 16px; }
 }
 
-/* Big Start Overlay */
+/* Start Overlay */
 .start-overlay {
   position: absolute;
   inset: 0;
@@ -443,21 +443,24 @@ body {
   height: 20px;
 }
 
-/* Captions / Subtitles Box */
+/* ============================================================
+   3D KINETIC EMBOSSED JUMPING WORDS (CHỮ NỔI NHẢY)
+   ============================================================ */
 .captions-container {
   background: linear-gradient(180deg, rgba(20, 16, 13, 0.96) 0%, rgba(13, 11, 9, 0.98) 100%);
-  padding: 22px 30px 24px;
+  padding: 24px 34px 28px;
   border-top: 1px solid var(--border-vintage);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   position: relative;
   z-index: 5;
+  perspective: 1000px; /* Enable 3D depth */
 }
 
 .scene-badge {
   font-family: var(--font-display);
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 2px;
   color: var(--accent-gold);
@@ -465,44 +468,85 @@ body {
 }
 
 .caption-primary {
-  font-family: var(--font-serif);
-  font-size: 1.35rem;
-  line-height: 1.6;
+  font-family: var(--font-sans);
+  font-size: 1.48rem;
+  line-height: 1.8;
   color: var(--text-secondary);
-  min-height: 64px;
-  letter-spacing: -0.01em;
+  min-height: 80px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  padding-top: 8px;
 }
 
-/* Spoken Karaoke Words Highlight */
+/* Individual Word Default State */
 .caption-primary .word {
   display: inline-block;
-  transition: color 0.18s ease, text-shadow 0.18s ease, transform 0.18s ease;
-  margin-right: 0.28em;
-  color: #9f9180;
+  position: relative;
+  margin-right: 0.3em;
+  color: #8c8172;
+  transition: color 0.25s ease, transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-origin: center bottom;
+  will-change: transform, text-shadow, color;
 }
 
+/* Spoken Words (Already passed) */
 .caption-primary .word.spoken {
-  color: #f2ebe0;
+  color: #f0eae1;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
+/* ACTIVE JUMPING 3D EMBOSSED WORD (CHỮ NỔI NHẢY THEO GIỌNG ĐỌC) */
 .caption-primary .word.active {
-  color: #fff0be;
-  font-weight: 700;
-  text-shadow: 0 0 16px rgba(247, 202, 114, 0.9), 0 0 32px rgba(247, 202, 114, 0.5);
-  transform: scale(1.06);
+  display: inline-block;
+  color: #fffef7;
+  font-weight: 800;
+  z-index: 10;
+  /* 3D Embossed Layering + Golden Radiance */
+  text-shadow: 
+    0 1px 0 #e6a73c,
+    0 2px 0 #c78625,
+    0 3px 0 #9e6312,
+    0 4px 10px rgba(0, 0, 0, 0.8),
+    0 0 25px rgba(247, 202, 114, 0.95),
+    0 0 50px rgba(247, 202, 114, 0.45);
+  animation: word3DPopJump 0.38s cubic-bezier(0.175, 0.885, 0.32, 1.4) forwards;
 }
 
-.caption-secondary {
-  font-style: italic;
-  font-size: 1.02rem;
-  color: #d1b58a;
-  line-height: 1.5;
-  border-left: 3px solid var(--accent-gold);
-  padding-left: 12px;
-  margin-top: 4px;
+/* Floating Underline Indicator for the jumping word */
+.caption-primary .word.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #ffe499, var(--accent-amber), transparent);
+  border-radius: 2px;
+  box-shadow: 0 0 10px var(--accent-amber);
+  animation: underlineGlow 0.35s ease-out;
 }
 
-/* Player Dock (Timeline & Controls) */
+@keyframes word3DPopJump {
+  0% {
+    transform: translateY(0) scale(1) translateZ(0);
+  }
+  45% {
+    transform: translateY(-16px) scale(1.35) translateZ(30px);
+  }
+  75% {
+    transform: translateY(-6px) scale(1.2) translateZ(18px);
+  }
+  100% {
+    transform: translateY(-9px) scale(1.24) translateZ(24px);
+  }
+}
+
+@keyframes underlineGlow {
+  0% { opacity: 0; transform: scaleX(0.3); }
+  100% { opacity: 1; transform: scaleX(1); }
+}
+
+/* Player Dock */
 .player-dock {
   background: var(--bg-card);
   backdrop-filter: blur(14px);
@@ -732,7 +776,7 @@ body {
     min-height: 380px;
   }
   .caption-primary {
-    font-size: 1.15rem;
+    font-size: 1.22rem;
   }
 }
 
@@ -748,11 +792,8 @@ body {
     min-height: 320px;
   }
   .caption-primary {
-    font-size: 1.02rem;
+    font-size: 1.1rem;
     min-height: auto;
-  }
-  .caption-secondary {
-    font-size: 0.88rem;
   }
   .start-card {
     padding: 24px 18px;
