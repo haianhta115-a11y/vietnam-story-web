@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ký Ức Việt Nam 40 Năm Trước - Hình Ảnh Sắc Nét & Giọng Đọc Thanh Thoát</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Clean Ambient Background -->
+  <div class="vintage-overlay"></div>
+
+  <div class="app-container">
+    <!-- Top Header Bar -->
+    <header class="header">
+      <div class="header-branding">
+        <span class="header-badge">KÝ ỨC THỜI GIAN • VIETNAM 40 YEARS AGO</span>
+        <h1 class="header-title">Cuộc Sống Việt Nam 40 Năm Trước</h1>
+      </div>
+
+      <div class="header-controls">
+        <!-- Narration Language Selection -->
+        <div class="control-group">
+          <label for="lang-select" class="control-label">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            Ngôn ngữ:
+          </label>
+          <select id="lang-select" class="select-input">
+            <option value="vi-VN" selected>Tiếng Việt (Truyền cảm, thanh thoát)</option>
+            <option value="en-US">English (Original Story)</option>
+          </select>
+        </div>
+
+        <!-- Voice Picker -->
+        <div class="control-group">
+          <label for="voice-select" class="control-label">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <line x1="12" y1="19" x2="12" y2="23"></line>
+              <line x1="8" y1="23" x2="16" y2="23"></line>
+            </svg>
+            Giọng đọc:
+          </label>
+          <select id="voice-select" class="select-input"></select>
+        </div>
+
+        <!-- Voice Pitch (Âm sắc thanh thoát) -->
+        <div class="control-group">
+          <label for="pitch-select" class="control-label">Âm sắc:</label>
+          <select id="pitch-select" class="select-input compact-select">
+            <option value="1.25">Rất thanh</option>
+            <option value="1.15" selected>Thanh thoát</option>
+            <option value="1.05">Tự nhiên</option>
+            <option value="0.95">Trầm ấm</option>
+          </select>
+        </div>
+
+        <!-- Speed Selector -->
+        <div class="control-group">
+          <label for="speed-select" class="control-label">Tốc độ:</label>
+          <select id="speed-select" class="select-input compact-select">
+            <option value="0.9">0.9x (Chậm rãi)</option>
+            <option value="1.0" selected>1.0x (Lưu loát)</option>
+            <option value="1.1">1.1x (Nhanh)</option>
+          </select>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Cinematic Theater Stage -->
+    <main class="theater-stage" id="theater-stage">
+      <div class="cinema-frame" id="cinema-frame">
+        <!-- Multi-layer Scene Viewport -->
+        <div class="viewport-wrapper">
+          <div class="scene-container" id="scene-container">
+            <!-- Scene 1: Hard work in the fields -->
+            <div class="scene-slide active" data-scene="0">
+              <div class="img-backdrop" style="background-image: url('assets/images/scene1-fields.jpg')"></div>
+              <img src="assets/images/scene1-fields.jpg" alt="Đồng quê Việt Nam 40 năm trước" class="ken-burns-img" id="img-scene-0">
+            </div>
+
+            <!-- Scene 2: Children walked to school -->
+            <div class="scene-slide" data-scene="1">
+              <div class="img-backdrop" style="background-image: url('assets/images/scene2-classroom.jpg')"></div>
+              <img src="assets/images/scene2-classroom.jpg" alt="Lớp học đơn sơ ngày ấy" class="ken-burns-img" id="img-scene-1">
+            </div>
+
+            <!-- Scene 3: Loving family support -->
+            <div class="scene-slide" data-scene="2">
+              <div class="img-backdrop" style="background-image: url('assets/images/scene3-family.jpg')"></div>
+              <img src="assets/images/scene3-family.jpg" alt="Gia đình quây quần ấm áp" class="ken-burns-img" id="img-scene-2">
+            </div>
+          </div>
+
+          <!-- Sound Wave Animation Indicator -->
+          <div class="speech-indicator" id="speech-indicator">
+            <span class="bar bar-1"></span>
+            <span class="bar bar-2"></span>
+            <span class="bar bar-3"></span>
+            <span class="bar bar-4"></span>
+            <span class="indicator-text">ĐANG ĐỌC</span>
+          </div>
+
+          <!-- Big Initial Start Overlay -->
+          <div class="start-overlay" id="start-overlay">
+            <div class="start-card">
+              <div class="start-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="play-hero-icon">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+              </div>
+              <h2 class="start-title">Bắt Đầu Trải Nghiệm Kể Chuyện</h2>
+              <p class="start-desc">
+                Hình ảnh sắc nét HD chuyển động nhịp nhàng theo giọng đọc thanh thoát, tái hiện chân thực đời sống Việt Nam 40 năm trước.
+              </p>
+              <button id="start-btn" class="btn btn-primary start-cta-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="btn-icon">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                <span>Lắng Nghe Ngay</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subtitles & Text Display Area -->
+        <div class="captions-container">
+          <div class="scene-badge" id="scene-badge">CẢNH 1 / 3 • ĐỒNG QUÊ & NỖI NHỌC NHẰN</div>
+          
+          <!-- Primary Language Highlighted Karaoke Text -->
+          <div class="caption-primary" id="caption-primary">
+            <!-- Words dynamically injected with spans -->
+          </div>
+
+          <!-- Secondary Language Translation Text -->
+          <div class="caption-secondary" id="caption-secondary">
+            <!-- Secondary translation here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls & Timeline Dock -->
+      <footer class="player-dock">
+        <!-- Progress Bar & Scene Marks -->
+        <div class="timeline-wrapper">
+          <div class="timeline-bar" id="timeline-bar">
+            <div class="timeline-progress" id="timeline-progress"></div>
+            <div class="timeline-markers">
+              <div class="marker marker-0 active" data-scene="0" title="Cảnh 1: Ngoài đồng ruộng"></div>
+              <div class="marker marker-1" data-scene="1" title="Cảnh 2: Đi bộ đến trường"></div>
+              <div class="marker marker-2" data-scene="2" title="Cảnh 3: Gia đình yêu thương"></div>
+            </div>
+          </div>
+          <div class="time-readout">
+            <span id="time-current">00:00</span> / <span id="time-total">00:26</span>
+          </div>
+        </div>
+
+        <!-- Main Playback Buttons -->
+        <div class="dock-actions">
+          <div class="action-buttons-left">
+            <!-- Prev Scene -->
+            <button id="prev-btn" class="btn btn-icon-only" title="Cảnh trước">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="19 20 9 12 19 4 19 20"></polygon>
+                <line x1="5" y1="19" x2="5" y2="5"></line>
+              </svg>
+            </button>
+
+            <!-- Play / Pause Master -->
+            <button id="play-pause-btn" class="btn btn-play-master" title="Phát / Tạm dừng">
+              <svg id="play-icon" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              <svg id="pause-icon" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+                <rect x="6" y="4" width="4" height="16"></rect>
+                <rect x="14" y="4" width="4" height="16"></rect>
+              </svg>
+            </button>
+
+            <!-- Next Scene -->
+            <button id="next-btn" class="btn btn-icon-only" title="Cảnh kế tiếp">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="5 4 15 12 5 20 5 4"></polygon>
+                <line x1="19" y1="5" x2="19" y2="19"></line>
+              </svg>
+            </button>
+
+            <!-- Replay Story -->
+            <button id="replay-btn" class="btn btn-icon-only" title="Phát lại từ đầu">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="1 4 1 10 7 10"></polyline>
+                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Scene Thumbnail Jump Strip -->
+          <div class="scene-thumbnails">
+            <button class="thumb-btn active" data-scene="0">
+              <img src="assets/images/scene1-fields.jpg" alt="Cảnh 1">
+              <span class="thumb-label">1. Đồng ruộng</span>
+            </button>
+            <button class="thumb-btn" data-scene="1">
+              <img src="assets/images/scene2-classroom.jpg" alt="Cảnh 2">
+              <span class="thumb-label">2. Lớp học</span>
+            </button>
+            <button class="thumb-btn" data-scene="2">
+              <img src="assets/images/scene3-family.jpg" alt="Cảnh 3">
+              <span class="thumb-label">3. Tình thân</span>
+            </button>
+          </div>
+
+          <div class="action-buttons-right">
+            <!-- Fullscreen -->
+            <button id="fullscreen-btn" class="btn btn-icon-only" title="Xem toàn màn hình">
+              <svg id="fs-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+              </svg>
+              <svg id="fs-compress-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+                <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- Context Notes -->
+    <section class="story-notes">
+      <div class="notes-header">
+        <h3 class="notes-title">Ý Nghĩa Lịch Sử & Nhân Văn</h3>
+        <span class="vintage-stamp">THẬP NIÊN 1980</span>
+      </div>
+      <div class="notes-content">
+        <div class="note-box">
+          <h4>🌾 Vất vả ngoài đồng ruộng</h4>
+          <p>
+            Cách đây 40 năm, cuộc sống còn muôn vàn khó khăn, thiếu thốn cái ăn, manh áo. Người lớn thức khuya dậy sớm, dầm mưa dãi nắng cày cấy trên những cánh đồng làng để nuôi sống gia đình.
+          </p>
+        </div>
+        <div class="note-box">
+          <h4>📚 Vượt khó đến trường</h4>
+          <p>
+            Những đôi chân trần hay dép cao su cuốc bộ hàng cây số đến lớp học ngói đơn sơ. Dù thiếu thốn sách vở, các em nhỏ vẫn chăm ngoan, tan học là về phụ giúp cha mẹ việc nhà.
+          </p>
+        </div>
+        <div class="note-box">
+          <h4>❤️ Tình người ấm áp, thủy chung</h4>
+          <p>
+            Dù cuộc sống gian nan, thiếu thốn trăm bề, mọi người luôn dành cho nhau tình yêu thương chân thành, chia ngọt sẻ bùi và sẵn lòng đùm bọc, giúp đỡ lẫn nhau.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
